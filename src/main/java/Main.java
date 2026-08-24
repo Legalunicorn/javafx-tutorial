@@ -34,8 +34,8 @@ public class Main extends Application {
         sendButton = new Button("Send");
 
         // Two profiles
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
+//        DialogBox dialogBox = new DialogBox("Hello!", userImage);
+//        dialogContainer.getChildren().addAll(dialogBox);
 
         // anchor pane is like the higher level node
         // its a layout also that sticks stuff to edge
@@ -79,5 +79,31 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+
+        // Handling user input
+        // button -> on mouse click
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        // user input -> form
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        // scroll down to the end everytime dialog container height changes
+        dialogContainer.heightProperty().addListener((observable ->
+                scrollPane.setVvalue(1.0)));
+
+    }
+
+    /**
+     * Creates a dialog box containing user input, and appends it
+     * to the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userInput.getText(), userImage)
+        );
+        userInput.clear();
     }
 }
