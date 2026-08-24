@@ -20,6 +20,7 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Duke duke = new Duke();
 
 
     @Override
@@ -101,8 +102,11 @@ public class Main extends Application {
      * to the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
+        String userText = userInput.getText();
+        String dukeText = duke.getResponse(userText);
         dialogContainer.getChildren().addAll(
-                new DialogBox(userInput.getText(), userImage)
+                new DialogBox(userInput.getText(), userImage),
+                new DialogBox(dukeText, dukeImage)
         );
         userInput.clear();
     }
