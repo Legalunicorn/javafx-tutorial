@@ -20,6 +20,7 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Duke duke = new Duke();
 
 
     @Override
@@ -34,8 +35,8 @@ public class Main extends Application {
         sendButton = new Button("Send");
 
         // Two profiles
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
+//        DialogBox dialogBox = new DialogBox("Hello!", userImage);
+//        dialogContainer.getChildren().addAll(dialogBox);
 
         // anchor pane is like the higher level node
         // its a layout also that sticks stuff to edge
@@ -79,5 +80,34 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+
+        // Handling user input
+        // button -> on mouse click
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        // user input -> form
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        // scroll down to the end everytime dialog container height changes
+        dialogContainer.heightProperty().addListener((observable ->
+                scrollPane.setVvalue(1.0)));
+
+    }
+
+    /**
+     * Creates a dialog box containing user input, and appends it
+     * to the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String dukeText = duke.getResponse(userText);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userInput.getText(), userImage),
+                DialogBox.getDukeDialog(dukeText, dukeImage)
+        );
+        userInput.clear();
     }
 }
