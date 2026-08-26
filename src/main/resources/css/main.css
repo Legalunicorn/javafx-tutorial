@@ -3,7 +3,7 @@
     -fx-background-color: main-color;
     -fx-background-image: url("../images/background.png");
     -fx-background-size: 400px 100%;
-    -background-repeat: repeat stretch;
+    -fx-background-repeat: repeat stretch;
 }
 
 .text-field {
